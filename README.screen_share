@@ -1,4 +1,8 @@
 
+
+Probably obsolete
+{
+
 Screen sharing with chrome based WebRTC screen sharing
 "This requires xdg-desktop-portal and one of its backends to be installed"
 :
@@ -14,3 +18,4 @@ fi
 In google-chrome
 chrome://flags/#enable-webrtc-pipewire-capturer
 
+}
