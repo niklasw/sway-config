@@ -1,0 +1,16 @@
+
+Screen sharing with chrome based WebRTC screen sharing
+"This requires xdg-desktop-portal and one of its backends to be installed"
+:
+
+Added to .bashrc to get pipewire stuff OK
+
+if [[ "$XDG_SESSION_DESKTOP" == sway ]]
+then
+    export XDG_CURRENT_DESKTOP=sway
+    systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+fi
+
+In google-chrome
+chrome://flags/#enable-webrtc-pipewire-capturer
+
