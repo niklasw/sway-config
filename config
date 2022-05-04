@@ -9,6 +9,9 @@
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
+set $lock_bg ~/Pictures/wallpapers/endeffect-fluid.jpg
+set $wallpaper ~/Pictures/wallpapers/ice_pict6683.jpg
+
 # Home row direction keys, like vim
 #set $left h
 #set $down j
@@ -17,9 +20,12 @@ set $mod Mod4
 
 # Your preferred terminal emulator
 set $term alacritty #urxvt256c-ml
+set $browser /usr/bin/google-chrome-beta
+## /usr/bin/chromium-browser
 # Your preferred application launcher
-set $menu wofi
+# set $menu nwggrid
 #set $menu dmenu_run
+set $menu wofi
 
 set $scripts /home/niklas/.config/sway/scripts
 
@@ -33,8 +39,8 @@ set $scripts /home/niklas/.config/sway/scripts
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output eDP-1 resolution 1928x1080 position 0,0
-exec swaybg -i ~/Pictures/wallpapers/blackrain.jpg -m fill -o \*
+output eDP-1 pos 0 0 res 1928x1080
+output * bg $wallpaper fill
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 #
@@ -54,9 +60,8 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "type:keyboard" {
+input type:keyboard {
     xkb_layout "us,se"
-    #xkb_options "caps:ctrl_modifier,grp:switch,grp:alts_toggle"
     xkb_options "caps:ctrl_modifier,grp:switch"
 }
 
@@ -65,10 +70,9 @@ input type:touchpad {
     natural_scroll enabled
 }
 
-input "0:0:X11_pointer" {
+input type:pointer {
     dwt enable
-    tap enable
-    natural_scroll enable
+    natural_scroll disable
 }
 
 
@@ -78,6 +82,9 @@ input "0:0:X11_pointer" {
 #
     # start a terminal
     bindsym $mod+Return exec $term
+
+    # start browser
+    bindsym $mod+c exec $browser
 
     # kill focused window
     bindsym $mod+Shift+q kill
@@ -106,8 +113,8 @@ input "0:0:X11_pointer" {
     #bindsym $mod+$up focus up
     #bindsym $mod+$right focus right
     # or use $mod+[up|down|left|right]
-    #bindsym Mod1+Tab focus right
-    #bindsym Mod1+Shift+Tab focus left
+    bindsym $mod+Tab focus right
+    bindsym $mod+Shift+Tab focus left
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
@@ -160,7 +167,7 @@ input "0:0:X11_pointer" {
 
     bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
     bindsym $mod+Shift+p exec $scripts/screen-recorder.sh
-    bindsym $mod+Shift+s exec alacritty -e $scripts/zenity-scale-display.sh
+    bindsym $mod+Shift+s exec bash -c $scripts/zenity-scale-display.sh
 #
 # Layout stuff:
 #
@@ -193,7 +200,10 @@ input "0:0:X11_pointer" {
 #
 
 for_window [app_id = "pavucontrol"] floating enable, resize set 600px 400px
+for_window [app_id = "wdisplays"] floating enable, resize set 600px 400px
 for_window [app_id = "zenity"] floating enable, resize set 400px 400px
+for_window [app_id = "xeyes"] floating enable, resize set 200px 200px
+for_window [app_id = "Color Picker"] floating enable, resize set 600px 300px
 
 #
 # Scratchpad:
@@ -263,9 +273,14 @@ bar {
 #
 
 # Set colors
+#set $bg #171717
+#set $fg #eff1f5
+#set $br #dd8800
+#set $ia #232425
+
 set $bg #171717
 set $fg #eff1f5
-set $br #dd8800
+set $br #4f99b9
 set $ia #232425
 
 # class                 border  backgr. text    indicator child_border
@@ -274,7 +289,7 @@ client.focused_inactive $bg     $bg     $fg     $bg       $bg
 client.unfocused        $bg     $bg     $fg     $bg       $bg
 client.background $bg
 
-default_border pixel 1
+default_border pixel 2
 for_window [class=".*"] border pixel 2
 gaps outer 0
 gaps inner 6
@@ -291,7 +306,6 @@ bindsym $mod+Menu exec $scripts/layout-switch.sh
 bindsym $mod+g exec $scripts/windows.py
 
 # Screen lock and suspend
-set $lock_bg ~/Pictures/endeffect-fluid.jpg
 
 # Suspend is instead handled directly by systemd: /etc/systemd/logind.conf
 #bindsym $mod+Mod1+Delete exec systemctl suspend
@@ -299,10 +313,10 @@ set $lock_bg ~/Pictures/endeffect-fluid.jpg
 bindsym $mod+L exec swaylock -i $lock_bg
 
 exec swayidle -w \
-         timeout 600  'swaylock -f -c 000000 -i $lock_bg' \
-         timeout 1200 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000 -i $lock_bg'
+         timeout 600 'swaylock -f -c 000000 -i $lock_bg' \
+         timeout 900 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
 
 # start notification daemon
 exec mako
