@@ -199,7 +199,7 @@ input type:pointer {
 # Floating windows
 #
 
-for_window [app_id = "pavucontrol"] floating enable, resize set 600px 400px
+for_window [app_id = "pavucontrol"] floating enable, resize set 900px 900px
 for_window [app_id = "wdisplays"] floating enable, resize set 600px 400px
 for_window [app_id = "zenity"] floating enable, resize set 400px 400px
 for_window [app_id = "xeyes"] floating enable, resize set 200px 200px
@@ -229,8 +229,20 @@ for_window [app_id = "Color Picker"] floating enable, resize set 600px 300px
 #bindsym XF86MonBrightnessUp exec sudo light -A 20
 #bindsym XF86MonBrightnessDown exec sudo light -A 20
 
-bindsym $mod+i exec $scripts/screen-brightness.sh i 10
-bindsym $mod+Shift+i exec $scripts/screen-brightness.sh d 10
+bindsym XF86MonBrightnessUp exec $scripts/screen-brightness.sh i 50
+bindsym XF86MonBrightnessDown exec $scripts/screen-brightness.sh d 50
+
+bindsym $mod+i exec $scripts/screen-brightness.sh i 50
+bindsym $mod+Shift+i exec $scripts/screen-brightness.sh d 50
+
+#
+# Audio
+#
+
+#bindsym XF86AudioLowerVolume 
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 #
 # Resizing containers:

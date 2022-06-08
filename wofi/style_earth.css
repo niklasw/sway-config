@@ -1,0 +1,18 @@
+#input {
+    background-color: #1c1c1c;
+    border: 2px solid #dd8800;
+    border-radius: 0;
+    color: #bcbcbc;
+}
+
+#scroll {
+    background-color: #1c1c1c;
+    border: 2px solid #dd8800;
+    border-top-width: 0;
+    color: #e2bf88;
+}
+
+#entry:selected {
+    background-color: #7a5925;
+    color: #343434;
+}
