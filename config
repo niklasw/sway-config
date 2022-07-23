@@ -9,7 +9,7 @@
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
-set $lock_bg ~/Pictures/wallpapers/endeffect-fluid.jpg
+set $lock_bg ~/Pictures/wallpapers/bitcoin-vault-bank.jpg
 set $wallpaper ~/Pictures/wallpapers/ice_pict6683.jpg
 
 # Home row direction keys, like vim

@@ -1,0 +1,12 @@
+daemonize
+ignore-empty-password
+indicator-idle-visible
+indicator-radius=100
+indicator-thickness=20
+indicator-y-position=478
+indicator-x-position=957
+ring-color=88888866
+key-hl-color=dddddd
+inside-color=55555566
+layout-bg-color=00000099
+layout-text-color=000000
