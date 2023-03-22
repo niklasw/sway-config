@@ -10,7 +10,10 @@
 set $mod Mod4
 
 set $lock_bg ~/Pictures/wallpapers/bitcoin-vault-bank.jpg
-set $wallpaper ~/Pictures/wallpapers/ice_pict6683.jpg
+#set $wallpaper ~/Pictures/wallpapers/paternoster_view.jpg
+#set $wallpaper ~/Pictures/wallpapers/simulation_summit_lake.jpg
+#set $wallpaper /home/niklas/Pictures/wallpapers/fuga_vinsch-2.jpg
+set $wallpaper /home/niklas/Pictures/wallpapers/fluorescenceukr1_single_1920x1080.jpg
 
 # Home row direction keys, like vim
 #set $left h
@@ -20,7 +23,13 @@ set $wallpaper ~/Pictures/wallpapers/ice_pict6683.jpg
 
 # Your preferred terminal emulator
 set $term alacritty #urxvt256c-ml
-set $browser /usr/bin/google-chrome-beta
+
+set $light_color base16-gruvbox-light-soft.yml
+set $dark_color base16-gruvbox-dark-soft.yml
+# Toggle between light and dark colorschemes
+bindsym $mod+Shift+n exec ~/.local/bin/alacritty-colorscheme -V toggle $light_color $dark_color
+
+set $browser /usr/bin/google-chrome-stable
 ## /usr/bin/chromium-browser
 # Your preferred application launcher
 # set $menu nwggrid
@@ -39,7 +48,7 @@ set $scripts /home/niklas/.config/sway/scripts
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output eDP-1 pos 0 0 res 1928x1080
+output eDP-1 pos 0 0 res 1920x1080
 output * bg $wallpaper fill
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -73,6 +82,7 @@ input type:touchpad {
 input type:pointer {
     dwt enable
     natural_scroll disable
+    scroll_factor 2.0
 }
 
 
@@ -168,6 +178,8 @@ input type:pointer {
     bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
     bindsym $mod+Shift+p exec $scripts/screen-recorder.sh
     bindsym $mod+Shift+s exec bash -c $scripts/zenity-scale-display.sh
+    bindsym $mod+Shift+a exec "alacritty -t quickterm -e alsamixer"
+    bindsym $mod+Shift+t exec "alacritty -t quickterm"
 #
 # Layout stuff:
 #
@@ -204,6 +216,7 @@ for_window [app_id = "wdisplays"] floating enable, resize set 600px 400px
 for_window [app_id = "zenity"] floating enable, resize set 400px 400px
 for_window [app_id = "xeyes"] floating enable, resize set 200px 200px
 for_window [app_id = "Color Picker"] floating enable, resize set 600px 300px
+for_window [title = "quickterm"] floating enable, resize set 1000px 400px
 
 #
 # Scratchpad:
@@ -276,8 +289,9 @@ bindsym $mod+r mode "resize"
 #}
 
 bar {
-    mode hide
     swaybar_command waybar
+    mode hide
+    modifier Ctrl+$mod
 }
 
 #
@@ -324,14 +338,16 @@ bindsym $mod+g exec $scripts/windows.py
 
 bindsym $mod+L exec swaylock -i $lock_bg
 
-exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000 -i $lock_bg' \
-         timeout 900 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 1200 'swaylock -f -c 000000 -i $lock_bg' \
+#          timeout 300 'swaymsg "output * dpms off"' \
+#          resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 
 # start notification daemon
 exec mako
 
 include /etc/sway/config.d/*
+
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
