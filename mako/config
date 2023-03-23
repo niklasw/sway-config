@@ -1,0 +1,8 @@
+# Mako configuration
+background-color=#444444cc
+text-color=#aaaaaa
+border-color=#dd8800
+border-size=1
+border-radius=6
+anchor=bottom-right
+#max-icon-size=16
