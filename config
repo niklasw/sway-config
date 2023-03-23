@@ -9,7 +9,7 @@
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
-set $lock_bg ~/Pictures/wallpapers/bitcoin-vault-bank.jpg
+set $lock_bg ~/Pictures/wallpapers/dragon-background.jpg
 #set $wallpaper ~/Pictures/wallpapers/paternoster_view.jpg
 #set $wallpaper ~/Pictures/wallpapers/simulation_summit_lake.jpg
 #set $wallpaper /home/niklas/Pictures/wallpapers/fuga_vinsch-2.jpg
@@ -48,7 +48,7 @@ set $scripts /home/niklas/.config/sway/scripts
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output eDP-1 pos 0 0 res 1920x1080
+output eDP-1 pos 0 0 res 1920x1200
 output * bg $wallpaper fill
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -242,11 +242,8 @@ for_window [title = "quickterm"] floating enable, resize set 1000px 400px
 #bindsym XF86MonBrightnessUp exec sudo light -A 20
 #bindsym XF86MonBrightnessDown exec sudo light -A 20
 
-bindsym XF86MonBrightnessUp exec $scripts/screen-brightness.sh i 50
-bindsym XF86MonBrightnessDown exec $scripts/screen-brightness.sh d 50
-
-bindsym $mod+i exec $scripts/screen-brightness.sh i 50
-bindsym $mod+Shift+i exec $scripts/screen-brightness.sh d 50
+bindsym XF86MonBrightnessUp exec $scripts/screen-brightness.sh i 10
+bindsym XF86MonBrightnessDown exec $scripts/screen-brightness.sh d 10
 
 #
 # Audio
@@ -338,11 +335,11 @@ bindsym $mod+g exec $scripts/windows.py
 
 bindsym $mod+L exec swaylock -i $lock_bg
 
-# exec swayidle -w \
-#          timeout 1200 'swaylock -f -c 000000 -i $lock_bg' \
-#          timeout 300 'swaymsg "output * dpms off"' \
-#          resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 300 'swaymsg "output * dpms off"' \
+         timeout 1200 'swaylock -f -c 000000 -i $lock_bg' \
+         resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
 
 # start notification daemon
 exec mako
