@@ -1,0 +1,16 @@
+
+Set up fingerprint from gnome-control-center, running gnome
+
+To make swaylock work, remove ignore-empty-password and edit
+/etc/pam.d/swaylock, adding two lines, so it looks so:
+
+#
+# PAM configuration file for the swaylock screen locker. By default, it includes
+# the 'login' configuration file (see /etc/pam.d/login)
+#
+
+auth include login
+
+auth sufficient pam_unix.so try_first_pass likeauth nullok
+
+auth sufficient pam_fprintd.so

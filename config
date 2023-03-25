@@ -178,7 +178,7 @@ input type:pointer {
     bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
     bindsym $mod+Shift+p exec $scripts/screen-recorder.sh
     bindsym $mod+Shift+s exec bash -c $scripts/zenity-scale-display.sh
-    bindsym $mod+Shift+a exec "alacritty -t quickterm -e alsamixer"
+    bindsym $mod+Shift+a exec "alacritty -t quickterm -e pulsemixer"
     bindsym $mod+Shift+t exec "alacritty -t quickterm"
 #
 # Layout stuff:
@@ -336,8 +336,8 @@ bindsym $mod+g exec $scripts/windows.py
 bindsym $mod+L exec swaylock -i $lock_bg
 
 exec swayidle -w \
-         timeout 300 'swaymsg "output * dpms off"' \
-         timeout 1200 'swaylock -f -c 000000 -i $lock_bg' \
+         timeout 300 'swaylock -f -c 000000 -i $lock_bg' \
+         timeout 400 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
 
