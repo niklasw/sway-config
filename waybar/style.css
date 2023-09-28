@@ -41,32 +41,35 @@ nord15 #b48ead
 /* Reset all styles */
 
 * {
-    color: #eceff4;
+    color: #c6bc82;
     border: 0;
     border-radius: 0;
     padding: 0 0;
-    font-family:UbuntuMono;
+    font-family:Terminus;
     font-size: 15px;
     margin-right: 5px;
     margin-left: 5px;
-    padding-bottom:3px;
+    padding-bottom:1px;
+    margin-top:-0px;
    }
 
 window#waybar {
-    background:rgba (53, 110, 135, 0.95);
+    /* background:rgba (53, 110, 135, 0.1);*/
+    background:rgba (38, 38, 38, 1);
 }
 
 #workspaces button {
-    padding: 2px 0px;
-    border-bottom: 2px;
-    color: #eceff4;
-    border-color: #d8dee9;
+    padding: 0px 8px 0px 8px;
+    border-width: 0 1px 1px 1px;
+    border-radius: 0px 0px 4px 4px;
+    border-color: #c6bc82;
     border-style: solid;
-    margin-top:2px;
 }
 
 #workspaces button.focused {
-    border-color: #81a1c1;
+    border-color: #a3be8c;
+    color: #a3be8c;
+    background: rgba (95, 95, 95, 1);
 }
 
 #mode {
@@ -74,8 +77,9 @@ window#waybar {
 }
 
 #clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,#custom-keyboard-layout, #backlight, #network, #pulseaudio, #mode, #tray, #window,#custom-launcher,#custom-power,#custom-pacman {
-    padding: 0 3px;
-    border-bottom: 2px;
+    padding: 0 4px;
+    border-width: 0 1px 1px 1px;
+    border-radius: 0px 0px 4px 4px;
     border-style: solid;
 }
  
@@ -162,12 +166,12 @@ window#waybar {
 
 #custom-launcher,#custom-power{
     border-style: hidden;
-    margin-top:2px;    
+    margin-top:0px;    
 }
 
 #window{
     border-style: hidden;
-    margin-top:1px;  
+    margin-top:0px;  
 }    
 #mode{
     margin-bottom:3px;

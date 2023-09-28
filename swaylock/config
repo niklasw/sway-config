@@ -1,5 +1,5 @@
 daemonize
-# ignore-empty-password
+ignore-empty-password
 indicator-idle-visible
 indicator-radius=100
 indicator-thickness=20

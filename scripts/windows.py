@@ -1,1 +1,0 @@
-wofi-scripts/windows.py

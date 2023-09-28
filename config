@@ -13,7 +13,16 @@ set $lock_bg ~/Pictures/wallpapers/dragon-background.jpg
 #set $wallpaper ~/Pictures/wallpapers/paternoster_view.jpg
 #set $wallpaper ~/Pictures/wallpapers/simulation_summit_lake.jpg
 #set $wallpaper /home/niklas/Pictures/wallpapers/fuga_vinsch-2.jpg
-set $wallpaper /home/niklas/Pictures/wallpapers/fluorescenceukr1_single_1920x1080.jpg
+#set $wallpaper /home/niklas/Pictures/wallpapers/wasa38_lines_render.png
+#set $wallpaper /home/niklas/Pictures/wallpapers/20230812_164847.jpg
+set $wallpaper /home/niklas/Pictures/wallpapers/simulationSummitRock.jpg
+#blackrain.jpg
+
+# gtk styling
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme Adwaita-dark
+}
 
 # Home row direction keys, like vim
 #set $left h
@@ -49,10 +58,13 @@ set $scripts /home/niklas/.config/sway/scripts
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 output eDP-1 pos 0 0 res 1920x1200
+# swaymsg 'output eDP-1 pos 1920 0' ; swaymsg 'output DP-2 pos 0 0'
 output * bg $wallpaper fill
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-#
+
+# exec --no-startup-id autotiling -w 2 3 4 5 6
+
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Input configuration
@@ -92,6 +104,9 @@ input type:pointer {
 #
     # start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec "alacritty -t quickterm"
+    bindsym $mod+x exec $term
+    bindsym $mod+Shift+x exec "alacritty -t quickterm"
 
     # start browser
     bindsym $mod+c exec $browser
@@ -176,6 +191,7 @@ input type:pointer {
     bindsym $mod+Ctrl+2 move workspace to output right
 
     bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
+    bindsym Print exec  grim -g "$(slurp -d)" - | wl-copy
     bindsym $mod+Shift+p exec $scripts/screen-recorder.sh
     bindsym $mod+Shift+s exec bash -c $scripts/zenity-scale-display.sh
     bindsym $mod+Shift+a exec "alacritty -t quickterm -e pulsemixer"
@@ -239,11 +255,13 @@ for_window [title = "quickterm"] floating enable, resize set 1000px 400px
 # Light
 #
 
-#bindsym XF86MonBrightnessUp exec sudo light -A 20
-#bindsym XF86MonBrightnessDown exec sudo light -A 20
+bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
 
-bindsym XF86MonBrightnessUp exec $scripts/screen-brightness.sh i 10
-bindsym XF86MonBrightnessDown exec $scripts/screen-brightness.sh d 10
+# bindsym XF86MonBrightnessUp exec $scripts/screen-brightness.sh i 10
+# bindsym XF86MonBrightnessDown exec $scripts/screen-brightness.sh d 10
+# bindsym $mod+XF86MonBrightnessUp exec $scripts/kbd-brightness.sh i 1
+# bindsym $mod+XF86MonBrightnessDown exec $scripts/kbd-brightness.sh d 1
 
 #
 # Audio
@@ -287,8 +305,9 @@ bindsym $mod+r mode "resize"
 
 bar {
     swaybar_command waybar
-    mode hide
-    modifier Ctrl+$mod
+    id bar_0
+    mode dock
+    modifier $mod
 }
 
 #
@@ -315,11 +334,11 @@ client.background $bg
 default_border pixel 2
 for_window [class=".*"] border pixel 2
 gaps outer 0
-gaps inner 6
+gaps inner 3
 smart_gaps on
 
-titlebar_border_thickness 0
-titlebar_padding 4 0
+# titlebar_border_thickness 0
+# titlebar_padding 4 0
 
 #
 # Script calls
@@ -333,18 +352,25 @@ bindsym $mod+g exec $scripts/windows.py
 # Suspend is instead handled directly by systemd: /etc/systemd/logind.conf
 #bindsym $mod+Mod1+Delete exec systemctl suspend
 
+bindsym Control+Alt+Delete exec gnome-system-monitor
+
 bindsym $mod+L exec swaylock -i $lock_bg
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000 -i $lock_bg' \
-         timeout 400 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+    timeout 400 'swaylock -f -c 000000 -i $lock_bg' \
+    timeout 600 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' before-sleep 'swaylock -f -c 000000'
 
 # start notification daemon
 exec mako
 
+# dumps core...
+# exec /home/niklas/.cargo/bin/waycorner
+
 include /etc/sway/config.d/*
 
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+bindsym $mod+k exec wlclock --corner-radius 100 100 0 100 --marking-width 2 --background-colour "#00000011" --border-colour "#00000033" --position bottom-right --no-input
+
+bindsym $mod+Shift+k exec pkill wlclock
+
 

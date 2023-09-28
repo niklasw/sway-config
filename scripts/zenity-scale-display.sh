@@ -24,7 +24,8 @@ function selector_window()
             --add-combo="Display" \
             --combo-values="$(display_list)" \
             --add-combo="Scale" \
-            --combo-values="0.5|1.0|2.0"
+            --combo-values="0.5|1.0|2.0" \
+            --text="Monitors"
 }
 
 function sway_scale()
